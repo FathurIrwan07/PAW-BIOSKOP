@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pemesanan Tiket - Dunia Bioskop</title>
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Gaya untuk navbar toggle button */
+      #navbar-toggle {
+        cursor: pointer;
+      }
+
+      /* Gaya untuk menu navbar yang muncul */
+      #navbar-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 20;
+      }
+      .seat-button {
+        background-color: #4a5568;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .seat-button:hover {
+        background-color: #2d3748;
+      }
+
+      .seat-button.selected {
+        background-color: #38a169;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-900 text-white">
+    <nav class="bg-gray-800 p-4 fixed w-full z-10 shadow-lg">
+      <div class="container mx-auto flex justify-between items-center">
+        <a class="flex items-center text-blue-400" href="<%= url %>">
+          <img
+            src="https://i.pinimg.com/736x/1c/c4/c9/1cc4c9eb92e33ecb9239635bab7a5428.jpg"
+            alt="Logo Bioskop"
+            class="h-10 mr-2"
+          />
+          <span class="text-xl font-bold">Dunia Bioskop</span>
+        </a>
+        <div class="hidden md:flex space-x-6">
+          <a
+            class="flex items-center hover:text-blue-400 transition duration-300"
+            href="<%= url %>"
+          >
+            <i class="fa fa-home mr-1"></i> Beranda
+          </a>
+          <a
+            class="flex items-center hover:text-blue-400 transition duration-300"
+            href="<%= url %>todos"
+          >
+            <i class="fa fa-film mr-1"></i> Film
+          </a>
+          <a
+            class="flex items-center hover:text-blue-400 transition duration-300"
+            href="<%= url %>profile"
+          >
+            <i class="fa fa-user mr-1"></i> Profil
+          </a>
+        </div>
+        <button
+          class="md:hidden flex items-center text-blue-400 focus:outline-none"
+          id="navbar-toggle"
+        >
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div class="md:hidden" id="navbar-menu" style="display: none">
+      <ul class="flex flex-col space-y-2 p-4 bg-gray-800">
+        <li>
+          <a
+            class="flex items-center hover:text-blue-400 transition duration-300"
+            href="<%= url %>"
+          >
+            <i class="fa fa-home mr-1"></i> Beranda
+          </a>
+        </li>
+        <li>
+          <a
+            class="flex items-center hover:text-blue-400 transition duration-300"
+            href="<%= url %>todos"
+          >
+            <i class="fa fa-film mr-1"></i> Film
+          </a>
+        </li>
+        <li>
+          <a
+            class="flex items-center hover:text-blue-400 transition duration-300"
+            href="<%= url %>profile"
+          >
+            <i class="fa fa-user mr-1"></i> Profil
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="container mx-auto mt-20 p-5">
+      <h1 class="text-3xl font-bold mb-5 text-blue-400">
+        Pemesanan Tiket Bioskop
+      </h1>
+
+      <form id="ticketForm" class="bg-gray-800 p-5 rounded-lg shadow-lg">
+        <div class="mb-4">
+          <label for="film" class="block text-sm font-medium">Pilih Film</label>
+          <select
+            id="film"
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2"
+          >
+            <option value="film1">Film 1</option>
+            <option value="film2">Film 2</option>
+            <option value="film3">Film 3</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label for="schedule" class="block text-sm font-medium"
+            >Pilih Jadwal</label
+          >
+          <select
+            id="schedule"
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2"
+          >
+            <option value="schedule1">Jadwal 1</option>
+            <option value="schedule2">Jadwal 2</option>
+            <option value="schedule3">Jadwal 3</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium">Pilih Kursi</label>
+          <div class="grid grid-cols-5 gap-2 mt-2">
+            <button
+              type="button"
+              class="seat-button"
+              onclick="selectSeat(this)"
+            >
+              A1
+            </button>
+            <button
+              type="button"
+              class="seat-button"
+              onclick="selectSeat(this)"
+            >
+              A2
+            </button>
+            <button
+              type="button"
+              class="seat-button"
+              onclick="selectSeat(this)"
+            >
+              A3
+            </button>
+            <button
+              type="button"
+              class="seat-button"
+              onclick="selectSeat(this)"
+            >
+              A4
+            </button>
+            <button
+              type="button"
+              class="seat-button"
+              onclick="selectSeat(this)"
+            >
+              A5
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="payment" class="block text-sm font-medium"
+            >Metode Pembayaran</label
+          >
+          <select
+            id="payment"
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2"
+          >
+            <option value="credit_card">Kartu Kredit</option>
+            <option value="bank_transfer">Transfer Bank</option>
+            <option value="e_wallet">Dompet Digital</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded"
+        >
+          Pesan Tiket
+        </button>
+      </form>
+
+      <div
+        id="ticketCode"
+        class="mt-5 hidden bg-gray-800 p-5 rounded-lg shadow-lg"
+      >
+        <h2 class="text-xl font-bold">Kode Tiket Anda:</h2>
+        <p id="code" class="mt-2 text-blue-400"></p>
+      </div>
+    </div>
+
+    <script>
+      function selectSeat(button) {
+        // Toggle seat selection
+        button.classList.toggle("selected");
+      }
+
+      document
+        .getElementById("ticketForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          // Get selected film, schedule, and payment method
+          const film = document.getElementById("film").value;
+          const schedule = document.getElementById("schedule").value;
+          const payment = document.getElementById("payment").value;
+
+          // Get selected seats
+          const selectedSeats = Array.from(
+            document.querySelectorAll(".seat-button.selected")
+          ).map((seat) => seat.textContent);
+
+          // Generate a ticket code (for demonstration purposes)
+          const ticketCode =
+            "TICKET-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+          // Display the ticket code
+          document.getElementById("code").textContent = ticketCode;
+          document.getElementById("ticketCode").classList.remove("hidden");
+
+          // Optionally, you can log the details to the console
+          console.log("Film:", film);
+          console.log("Jadwal:", schedule);
+          console.log("Metode Pembayaran:", payment);
+          console.log("Kursi yang dipilih:", selectedSeats);
+        });
+
+      const toggleButton = document.getElementById("navbar-toggle");
+      const navbarMenu = document.getElementById("navbar-menu");
+
+      toggleButton.addEventListener("click", () => {
+        if (
+          navbarMenu.style.display === "none" ||
+          navbarMenu.style.display === ""
+        ) {
+          navbarMenu.style.display = "flex";
+        } else {
+          navbarMenu.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
