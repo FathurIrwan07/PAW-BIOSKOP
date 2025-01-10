@@ -57,7 +57,8 @@ app.get("/todos", (req, res) => {
 
 // Route for the team page
 app.get("/team", (req, res) => {
-  res.render("team", { url }); // Pastikan mengirimkan variabel 'url' ke file ejs
+  const url = "/"; // Atur URL sesuai kebutuhan
+  res.render("team", { url });
 });
 
 app.use("/login", loginRoutes);
@@ -72,7 +73,7 @@ app.use((err, req, res, next) => {
 });
 
 // Gunakan port server
-const PORT = process.env.PORT || 5051; // Menggunakan PORT dari environment atau default ke 5050
+const PORT = process.env.PORT || 5050; // Menggunakan PORT dari environment atau default ke 5050
 app.listen(PORT, () => {
   console.log(`Server Berjalan di Port: ${PORT}`);
 });
